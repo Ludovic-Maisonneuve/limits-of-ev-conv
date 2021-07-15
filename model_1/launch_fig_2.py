@@ -35,7 +35,7 @@ def d_teq_tp(a, b, tp, l, lp, N, Np, d, cri, s, to):
 
     X0 = np.array([teq, peq])
     X = X0
-    G = 0.01 * np.array([[1, 0.01 * a / (1 + 0.02 * a)], [0.01 * a / (1 + 0.02 * a), 1]])
+    G = 0.01 * np.array([[1, 0], [0, 1]])
     dX = np.array([1, 1])
     i = 0
     while np.sqrt(dX[0]**2 + dX[1]**2) > 0.000000000000001 and X[0]**2 + X[1]**2 < 10000000:
