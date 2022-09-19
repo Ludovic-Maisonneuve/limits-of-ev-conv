@@ -16,3 +16,9 @@ Content:
   - results: to strore data from numerical simulation
   - launch_figXX: generates data for figure XX in the manuscript. It saves data in the folder results
   - open_figXX: generates the figure XX from data in results.
+
+Runs with python3.9
+Required package:
+- numpy
+- os
+- matplotlib
