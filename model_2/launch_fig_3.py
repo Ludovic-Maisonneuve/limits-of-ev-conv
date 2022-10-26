@@ -24,9 +24,9 @@ L_a = np.linspace(0.001+pas, 10-pas, res)
 pas = (10)/res
 L_b = np.linspace(0+pas, 10-pas, res)
 
-def t1_t2(a1, a2, b, l1, l2, N1, N2, d, cri1, cri2, s1, s2, to1, to2):
+def t1_t2_eq(a1, a2, b, l1, l2, N1, N2, d, cri1, cri2, s1, s2, to1, to2): #function returning the phenotypic distance between the two species at equilibrium
 
-    def beta(t1, p1, t2, p2):
+    def beta(t1, p1, t2, p2): #function computing the selection vector
         betat1 = - 2 * a1 * (t1 - p1) - 4 * b * (t1 - t2) * l2 * N2 * np.exp(- b * (t1 - t2) ** 2) * (
                 1 / (1 + l1 * N1 + l2 * N2 * np.exp(- b * (t1 - t2) ** 2) - d) - 1 / (
                 1 + l1 * N1 + l2 * N2 * np.exp(- b * (t1 - t2) ** 2))) - 4 * s1 * (t1 - to1)
@@ -39,22 +39,18 @@ def t1_t2(a1, a2, b, l1, l2, N1, N2, d, cri1, cri2, s1, s2, to1, to2):
                 cri2 + np.exp(a2 * (t2 - t1) * (2 * p2 - t1 - t2)) * N2 / N1)
         return np.array([betat1, betap1, betat2, betap2])
 
-    X0 = np.array([to1, to1, to2 + eps, to2 + eps])
+    X0 = np.array([to1, to1, to2 + eps, to2 + eps]) #vector with initial trait and preference
     X = X0
     G = 0.01 * np.array([[1, 0, 0, 0], [0, 1, 0, 0],
-                         [0, 0, 1, 0], [0, 0, 0, 1]])
+                         [0, 0, 1, 0], [0, 0, 0, 1]]) #define matrix of genetic covariance
     dX = np.array([1, 1, 1, 1])
     i = 0
     while np.sqrt(dX[0] ** 2 + dX[1] ** 2 + dX[2] ** 2 + dX[3] ** 2) / 4 > 0.0000000000001 and (
             X[0] ** 2 + X[1] ** 2 + X[2] ** 2 + X[3] ** 2) / 4 < 10000000 and i < 1000000:
         i += 1
         dX = np.dot(G, beta(X[0], X[1], X[2], X[3]))
-        X = X + dX
-    # print(i)
-    # if X[0] ** 2 + X[1] ** 2 < 10000000:
-    #     return np.abs(X[0] - X[2])
-    # else:
-    #     return float('inf')
+        X = X + dX #evolutionary dynamics of the mean trait and preference values
+
     return X[0], X[2]
 
 L_impact_a_b = np.zeros((len(L_a),len(L_b)))
@@ -63,5 +59,5 @@ for i, a in enumerate(L_a):
     for j, b in enumerate(L_b):
         if i > -1 and os.path.isfile('results/fig_3/' + str(i) + '_' + str(j) + '.npy') == False:
             print(i,j,flush=True)
-            X = t1_t2(a, a, b, l1, l2, N1, N2, d, cri1, cri2, s1, s2, to1, to2)
+            X = t1_t2_eq(a, a, b, l1, l2, N1, N2, d, cri1, cri2, s1, s2, to1, to2)
             np.save('results/fig_3/' + str(i) + '_' + str(j), X)
