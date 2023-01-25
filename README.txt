@@ -1,4 +1,4 @@
-Programs related to the following preprint article : Maisonneuve, L., Elias, M., Smadi, C. and Llaurens, V., The limits of evolutionary convergence in sympatry: reproductive interference and historical constraints leading to local diversity in warning traits. Evolution, 75: 149-165. https://doi.org/10.1101/2021.01.22.427743
+Programs related to the following article : Maisonneuve, L., Elias, M., Smadi, C. and Llaurens, V., The limits of evolutionary convergence in sympatry: reproductive interference and historical constraints leading to local diversity in warning traits. The American Naturalist https://doi.org/10.1086/723625
 Corresponding author: ludovic.maisonneuve.2015@polytechnique.org
 
 In this study we developped a mathematical model to investigate how reproductive interference impacts the mimetic relationship between sympatric species.
